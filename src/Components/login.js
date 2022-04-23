@@ -1,28 +1,54 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap"
-import { getInitialData } from "../utils/initData";
+import { Card, Dropdown, Row, Col } from "react-bootstrap"
+import { connect } from "react-redux";
+import { setAuthedUser } from "../action/setAuthedUser";
+import Image  from "../banner.jpg";
 class Login extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            users: []
-        }
-    }
+    handleLogin = value => {
+        console.log(value)
+        this.props.dispatch(setAuthedUser(value));
+      };
+    render() {
+        const { users,authedUser } = this.props
+       console.log(authedUser)
+        return (
+            <>
+                <br />
+                <br />
+                <br />
+                <Row>
+                    <Col />
+                    <Col>
+                        <Card style={{ textAlign: 'center' }}>
+                            <Card.Header as="h5">Login</Card.Header>
+                            <Card.Body>
+                                <img src={Image} alt={"banner"}/>
+                                <br/>
+                                <br/>
 
-render() {
-    console.log(getInitialData())
-    return (
-        <Card style={{ textAlign: 'center' }}>
-            <Card.Header as="h5">Login</Card.Header>
-            <Card.Body>
-                <Card.Title>Special title treatment</Card.Title>
-                <Card.Text>
-                    With supporting text below as a natural lead-in to additional content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-        </Card>
-    )
+                                <Dropdown>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        Choose User
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        {Object.keys(users).map((user, i) => (
+                                            <Dropdown.Item onClick={()=>this.handleLogin(user)} key={user.id}>{user}</Dropdown.Item>
+                                        ))}
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col />
+                </Row>
+            </>
+        )
+    }
 }
+const mapStateToProps = ({ users,authedUser }) => {
+    return {
+        authedUser,
+        users,
+    }
 }
-export default Login
+export default connect(mapStateToProps)(Login)
