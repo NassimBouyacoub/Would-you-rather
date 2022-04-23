@@ -1,25 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import Head from './Components/Head';
+import Login from './Components/login';
+import { Col, Row } from "react-bootstrap"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <Row>
+          <Head />
+        </Row>
+        <br />
+        <br />
+        <br />
+        <Row>
+          <Col />
+          <Col>
+            <Login />
+          </Col>
+          <Col />
+        </Row>
+      </>
+    )
+  }
 }
+
 
 export default App;
