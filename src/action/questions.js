@@ -6,24 +6,27 @@ export const ADD_QUESTION = 'ADD_QUESTION';
 
 
 function addQuestion(question) {
-	return {
-		type: ADD_QUESTION,
-		question
-	};
+  return {
+    type: ADD_QUESTION,
+    question
+  };
 }
-export function receiveQuestions (questions) {
+export function receiveQuestions(questions) {
   return {
     type: RECEIVE_QUESTIONS,
     questions,
   }
 }
-export function handleSaveQuestion(optionOneText, optionTwoText, author) {
-  return dispatch => {
-    return saveQuestion({ optionOneText, optionTwoText, author }).then(
-      question => {
-        dispatch(addQuestion(question));
-        dispatch(addUserQuestion(question));
-      }
-    );
-  };
+export function handleSaveQuestion(one, two) {
+  return (dispatch, getState) => {
+    const { authedUser } = getState()
+    return saveQuestion({
+      one,
+      two,
+      author: authedUser
+    })
+      .then((question) => dispatch(addQuestion(question)))
+      .then((question) => dispatch(addUserQuestion(question)))
+  }
+
 }

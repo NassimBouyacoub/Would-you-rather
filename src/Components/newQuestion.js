@@ -1,43 +1,77 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Col, Row, Button, Form, FormControl, InputGroup, FormLabel } from "react-bootstrap";
+import { handleSaveQuestion } from "../action/questions";
+import { Navigate } from "react-router-dom";
 
 class newQuestion extends React.Component {
+    state = {
+        validSubmit: false,
+        one: '',
+        two: ''
+    }
+    handleChange = (e) => {
+        console.log(e.target.value)
+        this.setState({ [e.target.id]: e.target.value });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const { one, two } = this.state;
+        const { dispatch, id } = this.props
+
+    
+          handleSaveQuestion(one, two);
+  
+          this.setState({
+            one: '',
+            two: ''
+          });
+          this.setState({ validSubmit: true });
+        };
+      
     render() {
+        if (this.state.validSubmit === true) {
+            return <Navigate to="/" />;
+          }
+        const { handleChange, handleSubmit } = this
+
         const { authedUser, users } = this.props
         console.log(authedUser)
         return (
             <Card>
-                <Card.Header as="h5" >{users[authedUser].name} new Question:</Card.Header>
+                <Card.Header as="h5" >new Question:</Card.Header>
                 <Card.Body>
                     <Row>
                         <Col>
                             <img src={users[authedUser].avatarURL} alt={"banner"} style={{ width: "100%" }} />
                         </Col>
                         <Col style={{ textAlign: "center" }}>
-                            <Form>
+                            <Form onSubmit={handleSubmit}>
                                 <FormLabel>
                                     Would you rather
                                 </FormLabel>
                                 <InputGroup>
                                     <FormControl
-                                        placeholder="option one"
-                                        aria-label="Username"
-                                        aria-describedby="basic-addon1"
+                                        id="one"
+                                        value={this.state.one}
+                                        onChange={handleChange}
+                                        placeholder="First option"
                                     />
                                 </InputGroup>
-                                <br/>
+                                <br />
                                 <p>OR</p>
                                 <InputGroup>
                                     <FormControl
-                                        placeholder="option two"
-                                        aria-label="Username"
-                                        aria-describedby="basic-addon1"
+                                        id="two"
+                                        value={this.state.two}
+                                        onChange={handleChange}
+                                        placeholder="Second option"
                                     />
                                 </InputGroup>
                                 <br />
                                 <br />
-                                <Button variant="primary">submit</Button>
+                                <Button variant="primary" type="submit">submit</Button>
                             </Form>
                         </Col>
                     </Row>
@@ -49,12 +83,26 @@ class newQuestion extends React.Component {
     }
 
 }
-
-const mapStateToProps = ({ authedUser, users }) => {
+function mapStateToProps({ authedUser,users }) {
     return {
-        authedUser,
-        users
+      authedUser,
+      users
     };
-}
+  }
+  
+  export default connect(
+    mapStateToProps,
+    { handleSaveQuestion }
+  )(newQuestion);
 
-export default connect(mapStateToProps)(newQuestion)
+
+
+
+// const mapStateToProps = ({ authedUser, users }) => {
+//     return {
+//         authedUser,
+//         users,
+//     };
+// }
+
+// export default connect(mapStateToProps)(newQuestion)
