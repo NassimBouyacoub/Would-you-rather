@@ -1,6 +1,9 @@
 import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap"
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Router } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { setAuthedUser } from "../action/setAuthedUser";
 
 class Head extends React.Component {
@@ -26,7 +29,8 @@ class Head extends React.Component {
                                         ? ""
                                         : authedUser
                                     }</Nav.Link>
-                                    <Nav.Link onClick={this.disconnect}>Disconnect</Nav.Link>
+                                            <Nav.Link onClick={this.disconnect}>Disconnect</Nav.Link>
+                   
                                 </Nav>
                             </>
                             : <></>}

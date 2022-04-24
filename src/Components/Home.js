@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { Row, Tab, Tabs, Col } from 'react-bootstrap'
 import Question from "./Question";
 import Vote from "./Vote";
-
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 class Home extends React.Component {
     render() {
         const { authedUser, users, questions } = this.props
@@ -18,9 +20,14 @@ class Home extends React.Component {
                                 {Object.keys(users[authedUser].answers).map((answer) => (
 
                                     Object.keys(questions).map((question) => (
+
                                         question == answer
                                             ? <>
-                                                <Question id={question} />
+                                                <span key={question}>
+                                                    <Link to={`/question/${question}`}>
+                                                        <Question key={question} id={question} />
+                                                    </Link>
+                                                </span>
                                                 <br />
                                             </>
                                             : <></>
@@ -33,13 +40,11 @@ class Home extends React.Component {
                                     Object.keys(questions).map((question) => (
                                         question == answer
                                             ? <>
-
                                             </>
                                             : <>
-                                                <Question id={question} />
+                                                <Question key={question} id={question} />
                                                 <br />
                                             </>
-
                                     ))
 
                                 ))}

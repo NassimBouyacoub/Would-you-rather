@@ -1,14 +1,25 @@
 import React from "react";
-import { Card, Col, Row,Button } from "react-bootstrap";
+import { Card, Col, Row, Button } from "react-bootstrap";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
-class Question extends React.Component {
-    render() {
-        const { question, users } = this.props
-        const { author, optionOne } = question
+
+const Question = (props) => {
+
+    const users = useSelector(state => state.users)
+    const questions = useSelector(state => state.questions)
+
+    const { id } = useParams();
+    console.log(props.id)
+    if (id === undefined) {
+        const id = props.id
+        const question= questions[id]
+        const { author, optionOne } = question;
+
         return (
             <Card>
-                <Card.Header as="h5" >{users[author].name} asks:</Card.Header>
+                <Card.Header as="h5" >{author} asks:</Card.Header>
                 <Card.Body>
                     <Row>
                         <Col>
@@ -25,17 +36,51 @@ class Question extends React.Component {
                 </Card.Body>
             </Card>
         )
+
     }
+    else {
+        const question = questions[id];
+        const { author, optionOne } = question;
+
+        return (
+            <Card>
+                <Card.Header as="h5" >{author} asks:</Card.Header>
+                <Card.Body>
+                    <Row>
+                        <Col>
+                            <img src={users[author].avatarURL} alt={"banner"} style={{ width: "100%" }} />
+                        </Col>
+                        <Col>
+                            <h3>Would you rather</h3>
+                            <p>...{optionOne.text}...</p>
+                            <Button variant="primary">View Poll</Button>
+                        </Col>
+                    </Row>
+                    <br />
+                    <br />
+                </Card.Body>
+            </Card>
+        )
+
+    }
+    // console.log(this.props.path);
+    // console.log(author)
+
+
+
 }
 
 
 
 const mapStateToProps = ({ authedUser, questions, users }, { id }) => {
-    const question = questions[id]
+    const idd = id
+    console.log(idd)
+
     return {
         authedUser,
-        question,
-        users
+        questions,
+        users,
+        idd,
     }
 }
 
