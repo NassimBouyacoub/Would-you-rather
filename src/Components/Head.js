@@ -2,7 +2,7 @@ import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap"
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Router } from "react-router-dom";
+import { Router ,NavLink} from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { setAuthedUser } from "../action/setAuthedUser";
 
@@ -14,15 +14,15 @@ class Head extends React.Component {
         const { authedUser } = this.props
         return (
             <>
-                <Navbar bg="dark" variant="dark">
-                    <Container style={{ textAlign: 'center' }}>
-                        <Navbar.Brand href="/" >Would you rather</Navbar.Brand>
+                <Navbar bg="dark" variant="dark" >
+                    <Container style={{ textAlign: 'center'}}>
+                    <NavLink to='' > <h1>Would you rather</h1></NavLink>
                         {authedUser != null
                             ? <>
                                 <Nav className="me-auto">
-                                    <Nav.Link href="#home">Home</Nav.Link>
-                                    <Nav.Link href="#features">New Question</Nav.Link>
-                                    <Nav.Link href="#pricing">Leader Board</Nav.Link>
+                                    <NavLink to=''>Home</NavLink>
+                                    <NavLink to="newQuestion">New Question</NavLink>
+                                    <NavLink to="leaderboard">LeaderBoard</NavLink>
                                 </Nav>
                                 <Nav>
                                     <Nav.Link>{authedUser === null

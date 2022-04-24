@@ -62,6 +62,7 @@ const mapStateToProps = ({ authedUser, users, questions }) => {
         authedUser,
         users,
         questions
+        
     }
 }
 export default connect(mapStateToProps)(Home)

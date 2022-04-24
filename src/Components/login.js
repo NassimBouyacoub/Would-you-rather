@@ -32,7 +32,7 @@ class Login extends React.Component {
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
                                         {Object.keys(users).map((user) => (
-                                                <Dropdown.Item onClick={() => this.handleLogin(user)} key={user.id}>{user}</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => this.handleLogin(user)} key={user}>{user}</Dropdown.Item>
                                         ))}
                                     </Dropdown.Menu>
                                 </Dropdown>
