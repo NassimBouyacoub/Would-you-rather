@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Card, Col, Row, Button, Form, FormControl, InputGroup, FormLabel } from "react-bootstrap";
 import { handleSaveQuestion } from "../action/questions";
 import { Navigate } from "react-router-dom";
+import authedUser from "../Reducers/authedUser";
 
 class newQuestion extends React.Component {
     state = {
@@ -18,11 +19,7 @@ class newQuestion extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const { one, two } = this.state;
-        const { dispatch, id } = this.props
-
-    
-          handleSaveQuestion(one, two);
-  
+          handleSaveQuestion(one, two,this.props.authedUser);
           this.setState({
             one: '',
             two: ''

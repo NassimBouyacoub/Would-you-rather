@@ -11,7 +11,6 @@ const Question = (props) => {
     const questions = useSelector(state => state.questions)
 
     const { id } = useParams();
-    console.log(props.id)
     if (id === undefined) {
         const id = props.id
         const question= questions[id]
@@ -74,8 +73,6 @@ const Question = (props) => {
 
 const mapStateToProps = ({ authedUser, questions, users }, { id }) => {
     const idd = id
-    console.log(idd)
-
     return {
         authedUser,
         questions,

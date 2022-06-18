@@ -17,16 +17,17 @@ export function receiveQuestions(questions) {
     questions,
   }
 }
-export function handleSaveQuestion(one, two) {
-  return (dispatch, getState) => {
-    const { authedUser } = getState()
+export function handleSaveQuestion(optionOneText, optionTwoText,authedUser) {
+  console.log(optionOneText,optionTwoText)
+
+    console.log(optionOneText,optionTwoText)
+    console.log(authedUser)
     return saveQuestion({
-      one,
-      two,
-      author: authedUser
-    })
-      .then((question) => dispatch(addQuestion(question)))
-      .then((question) => dispatch(addUserQuestion(question)))
-  }
+      optionOneText,
+      optionTwoText,
+      author:authedUser}
+    )
+      .then((question) => (addQuestion(question)))
+      .then((question) => (addUserQuestion(question,authedUser)))
 
 }
